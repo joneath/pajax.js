@@ -45,6 +45,30 @@ describe("pajax", function() {
         expect(onPageSpy).toHaveBeenCalledWith(pageOne, {page: 1, collection: [pageOne]});
       });
 
+      describe("when providing a parse callback", function() {
+        it("should call the passed parse callback with the response", function() {
+          var parseSpy = jasmine.createSpy("parseSpy");
+          var pajaxCallback = pajax({
+            parse: parseSpy
+          });
+          pajaxCallback(pageOne);
+
+          expect(parseSpy).toHaveBeenCalledWith(pageOne);
+        });
+
+        it("should collect only results returned from the parse callback", function() {
+          var parsedResults = {parsed: true};
+
+          var pajaxCallback = pajax({
+            onPage: onPageSpy,
+            parse: function(response) { return parsedResults; }
+          });
+          pajaxCallback(pageOne);
+
+          expect(onPageSpy).toHaveBeenCalledWith(pageOne, {page: 1, collection: [parsedResults]});
+        });
+      });
+
       describe("when returning false on the onPage callback", function() {
         it("should not request the next page", function() {
           var pajaxCallback = pajax({
@@ -114,7 +138,7 @@ describe("pajax", function() {
               responseText: JSON.stringify(errorResponse)
             });
 
-            expect(onErrorSpy).toHaveBeenCalledWith(errorResponse, {page: 1, collection: [pageOne]});
+            expect(onErrorSpy).toHaveBeenCalled();
           });
         });
       });
