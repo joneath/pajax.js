@@ -68,3 +68,11 @@ Here is an example of how we could fetch the first 200 items from a users feed.
 		console.log("Here is your feed", collection);
 	  }
 	}));
+	
+## Dependencies
+
+* jQuery - tested with jQuery 1.7.2 only, but should work with 1.5+
+
+
+Copyright (c) Jonathan Eatherly. This software is licensed under the MIT License.
+
