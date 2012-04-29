@@ -16,7 +16,7 @@ You use pajax just like any other AJAX callback but you specify a few additional
 	  }
 	}));
 
-#### Callbacks
+### Callbacks
 
 `onPage` is called each time a page is returned from the server. It's passed the successful response of the AJAX call as well as a context object. `onPage` is responsible for returning either the url for the next page to fetch, or a falsy value to stop the fetch loop *(default return value of undefined will stop the loop)*.
 
